@@ -36,11 +36,12 @@ export class AuthService {
     });
     return this.generateToken(user);
   }
-  async refreshToken(): Promise<any> {
-    const date = new Date();
-    console.log(date);
-    return this.jwtService.sign({ date });
+
+  async refreshToken(token): Promise<any> {
+    const email = this.jwtService.decode(token.split(' ')[1])['email']
+    return this.jwtService.sign({ email });
   }
+
   private async generateToken(user: User): Promise<any> {
     const payload = { email: user.email };
     return {
