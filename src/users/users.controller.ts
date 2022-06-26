@@ -46,6 +46,7 @@ export class UsersController {
       return response.status(HttpStatus.CREATED).json({
         message: 'Пользователь создан',
         newUser,
+        newToken: await this.AuthService.refreshToken(),
       });
     } catch (e) {
       return response.status(e.status).json(e.response);
@@ -59,6 +60,7 @@ export class UsersController {
       return response.status(HttpStatus.OK).json({
         message: 'Пользователь найден',
         user,
+        newToken: await this.AuthService.refreshToken(),
       });
     } catch (e) {
       return response.status(e.status).json(e.response);
@@ -79,6 +81,7 @@ export class UsersController {
       return response.status(HttpStatus.OK).json({
         message: 'Пользователь обновлен',
         updatedUser,
+        newToken: await this.AuthService.refreshToken(),
       });
     } catch (e) {
       return response.status(e.status).json(e.response);
@@ -92,6 +95,7 @@ export class UsersController {
       return response.status(HttpStatus.OK).json({
         message: 'Пользователь удален',
         deletedUser,
+        newToken: await this.AuthService.refreshToken(),
       });
     } catch (e) {
       return response.status(e.status).json(e.response);

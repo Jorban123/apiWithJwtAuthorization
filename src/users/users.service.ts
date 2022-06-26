@@ -1,9 +1,9 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from './users.schema';
-import { Model } from 'mongoose';
-import { CreateUserDto } from './Dto/create-user.dto';
-import { UpdateUserDto } from './Dto/update-user.dto';
+import {HttpException, Injectable, NotFoundException} from '@nestjs/common';
+import {InjectModel} from '@nestjs/mongoose';
+import {User, UserDocument} from './users.schema';
+import {Model} from 'mongoose';
+import {CreateUserDto} from './Dto/create-user.dto';
+import {UpdateUserDto} from './Dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -53,8 +53,7 @@ export class UsersService {
     return user;
   }
 
-  async getUserByEmail(email: string) {
-    const user = await this.userModel.findOne({ email: email });
-    return user;
+  async getUserByEmail(email: string): Promise<User> {
+    return this.userModel.findOne({email: email});
   }
 }

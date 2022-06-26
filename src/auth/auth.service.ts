@@ -1,5 +1,4 @@
 import {
-  ExecutionContext,
   HttpException,
   HttpStatus,
   Injectable,
@@ -17,7 +16,7 @@ export class AuthService {
     private userService: UsersService,
     private jwtService: JwtService,
   ) {}
-  async login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto): Promise<any> {
     const user = await this.validateUser(loginDto);
     return this.generateToken(user);
   }
@@ -42,14 +41,14 @@ export class AuthService {
     console.log(date);
     return this.jwtService.sign({ date });
   }
-  private async generateToken(user: User) {
+  private async generateToken(user: User): Promise<any> {
     const payload = { email: user.email };
     return {
       token: this.jwtService.sign(payload),
     };
   }
 
-  private async validateUser(loginDto: LoginDto) {
+  private async validateUser(loginDto: LoginDto): Promise<User> {
     const user: User = await this.userService.getUserByEmail(loginDto.email);
     if (!user) {
       throw new UnauthorizedException('Некорректный email или password');
